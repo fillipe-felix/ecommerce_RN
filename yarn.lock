@@ -1067,6 +1067,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@expo-google-fonts/roboto-slab@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/roboto-slab/-/roboto-slab-0.1.0.tgz#f2e074b954275f9820602b05251ca0692bc02c6f"
+  integrity sha512-C5YKllmFAIbzxzSeMBkKHQq3IFdE9Z9NcSmtOluTowhTRiIaqFHasVU2FY9wPK/pg5f72dKYkxsVLq52t33QlQ==
+
 "@expo/babel-preset-cli@0.2.18":
   version "0.2.18"
   resolved "https://registry.yarnpkg.com/@expo/babel-preset-cli/-/babel-preset-cli-0.2.18.tgz#136acf8a0efe259e29ebc614b68552e5acb47d86"
