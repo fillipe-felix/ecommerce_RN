@@ -1,9 +1,11 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+  padding: 16px 0 ${Platform.OS === 'android' ? 100 : 40}px;
 `;
 
 export const Title = styled.Text`

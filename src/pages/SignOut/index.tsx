@@ -1,9 +1,50 @@
 import React from 'react';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
-import { Container } from './styles';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+
+import { Container, BackToSingIn, BackToSingInText, Title } from './styles';
+
+import logoImg from '../../assets/logo.png';
 
 const SingUp: React.FC = () => {
-  return <Container />;
+  const navigation = useNavigation();
+
+  return (
+    <>
+      <KeyboardAvoidingView style={{ flex: 1 }} enabled behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView contentContainerStyle={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+          <Container>
+            <Image source={logoImg} />
+            <View>
+              <Title>Crie sua conta</Title>
+            </View>
+
+            <Input name="name" icon="user" placeholder="Nome" />
+
+            <Input name="email" icon="mail" placeholder="E-mail" />
+
+            <Input name="password" icon="lock" placeholder="Senha" secureTextEntry />
+
+            <Button
+              onPress={() => {
+                console.log('deu bom');
+              }}
+            >
+              Cadastrar
+            </Button>
+          </Container>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <BackToSingIn onPress={() => navigation.goBack()}>
+        <Icon name="arrow-left" size={20} color="#fff" />
+        <BackToSingInText>Voltar para logon</BackToSingInText>
+      </BackToSingIn>
+    </>
+  );
 };
 
 export default SingUp;
