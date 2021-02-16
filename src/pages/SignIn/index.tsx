@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { Image, View, KeyboardAvoidingView, Platform, ScrollView, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
@@ -26,6 +26,7 @@ interface FormData {
 
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
 
   const handleSignIn = useCallback((data: object) => {
@@ -42,9 +43,30 @@ const SingIn: React.FC = () => {
               <Title>Faça seu logon</Title>
             </View>
             <Form onSubmit={handleSignIn} ref={formRef}>
-              <Input name="name" icon="mail" placeholder="E-mail" />
+              <Input
+                name="name"
+                icon="mail"
+                placeholder="E-mail"
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
+              />
 
-              <Input name="password" icon="lock" placeholder="Senha" secureTextEntry />
+              <Input
+                ref={passwordInputRef}
+                name="password"
+                icon="lock"
+                placeholder="Senha"
+                secureTextEntry
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  formRef.current?.submitForm();
+                }}
+              />
             </Form>
             <Button
               onPress={() => {
