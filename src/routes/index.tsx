@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import SingIn from '../pages/SignIn';
-import SingUp from '../pages/SignOut';
+import SingUp from '../pages/SignUp';
 
 const Auth = createStackNavigator();
 

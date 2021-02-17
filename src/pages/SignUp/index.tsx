@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import api from '../../service/api';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -32,16 +33,17 @@ const SingUp: React.FC = () => {
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
-        name: Yup.string().required('Nome é obrigatório'),
+        nome: Yup.string().required('Nome é obrigatório'),
         email: Yup.string().required('E-mail é obrigatório'),
-        password: Yup.string().min(6, 'Senha de no mínimo 6 caracteres'),
+        senha: Yup.string().min(6, 'Senha de no mínimo 6 caracteres'),
       });
 
       await schema.validate(data, {
         abortEarly: false,
       });
 
-      // await api.post('/users', data);
+      console.log(data);
+      await api.post('/clientes', data);
 
       Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer seu logon no GoBarber!');
 
@@ -71,7 +73,7 @@ const SingUp: React.FC = () => {
             <Form ref={formRef} onSubmit={handleSignUp}>
               <Input
                 autoCapitalize="words"
-                name="name"
+                name="nome"
                 icon="user"
                 placeholder="Nome"
                 returnKeyType="next"
@@ -96,7 +98,7 @@ const SingUp: React.FC = () => {
 
               <Input
                 ref={passwordInputRef}
-                name="password"
+                name="senha"
                 icon="lock"
                 placeholder="Senha"
                 secureTextEntry
