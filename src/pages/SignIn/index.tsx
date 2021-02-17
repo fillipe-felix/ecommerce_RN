@@ -20,34 +20,39 @@ import {
 
 import logoImg from '../../assets/logo.png';
 
+import { useAuth } from '../../hooks/auth';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 
 interface SignInFormData {
   email: string;
-  password: string;
+  senha: string;
 }
 
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+
   const navigation = useNavigation();
+
+  const { signIn, user } = useAuth();
 
   const handleSignIn = useCallback(async (data: SignInFormData) => {
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         email: Yup.string().required('E-mail é obrigatório'),
-        password: Yup.string().required('Senha é obrigatória'),
+        senha: Yup.string().required('Senha é obrigatória'),
       });
       await schema.validate(data, {
         abortEarly: false,
       });
-      console.log(`Email:${data.email}  Senha:${data.password}`);
+      console.log(`Email:${data.email}  Senha:${data.senha}`);
 
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password,
-      // });
+      await signIn({
+        email: data.email,
+        senha: data.senha,
+      });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
@@ -71,7 +76,7 @@ const SingIn: React.FC = () => {
             </View>
             <Form onSubmit={handleSignIn} ref={formRef}>
               <Input
-                name="name"
+                name="email"
                 icon="mail"
                 placeholder="E-mail"
                 autoCorrect={false}
@@ -85,7 +90,7 @@ const SingIn: React.FC = () => {
 
               <Input
                 ref={passwordInputRef}
-                name="password"
+                name="senha"
                 icon="lock"
                 placeholder="Senha"
                 secureTextEntry
