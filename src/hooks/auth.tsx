@@ -47,13 +47,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     const { authorization } = response.headers;
 
     const resp = await api.get(`/clientes/email?value=${email}`, { headers: { Authorization: authorization } });
-    console.log(resp.data);
+    // console.log(resp.data);
     await AsyncStorage.multiSet([
       ['@GoBarbar:token', authorization],
       ['@GoBarber:user', JSON.stringify(resp.data)],
     ]);
 
     setData({ token: authorization, user: resp.data });
+    // console.log(data);
   }, []);
 
   const signOut = useCallback(async () => {
